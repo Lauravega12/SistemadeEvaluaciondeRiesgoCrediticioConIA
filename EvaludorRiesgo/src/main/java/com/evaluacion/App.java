@@ -1,6 +1,7 @@
 package com.evaluacion;
 
-import java.util.Scanner;
+import java.sql.SQLException;
+import java.util.Scanner; // Importa SQLException para manejar excepciones de la base de datos
 
 public class App {
     public static void main(String[] args) {
@@ -30,7 +31,17 @@ public class App {
             // Evaluación de riesgo
             String resultado = EvaluadorRiesgo.calcularRiesgo(historialPago, ingresos, deuda, creditosActivos, edad, tiempoEmpleo, montoSolicitado);
             System.out.println("Nivel de Riesgo: " + resultado);
-        }
-    }
-}
-//sirve
+
+            // Crear una instancia del repositorio para guardar la evaluación
+            EvaluacionRepository repo = new EvaluacionRepository();
+            try {
+                repo.guardar(historialPago, ingresos, deuda, creditosActivos,
+                             edad, tiempoEmpleo, montoSolicitado, resultado);
+            } catch (SQLException e) {
+                System.err.println("Error al procesar y guardar la evaluación: " + e.getMessage());
+                
+            }
+
+        } // Cierre del scanner
+    } // Cierre del main
+} // Cierre de la clase App
