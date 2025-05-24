@@ -1,4 +1,4 @@
-package com.rc_app.riesgocrediticio.model;
+package com.rc_app.Riesgocrediticio.Model;
 
 import jakarta.persistence.*;
 import java.util.Objects;

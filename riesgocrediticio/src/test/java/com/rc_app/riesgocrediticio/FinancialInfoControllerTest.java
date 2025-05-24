@@ -1,14 +1,12 @@
-package com.rc_app.riesgocrediticio;
-
-// Importaciones de modelos y repositorios
-import com.rc_app.riesgocrediticio.model.FinancialInfo;
-import com.rc_app.riesgocrediticio.model.User;
-import com.rc_app.riesgocrediticio.repository.FinancialInfoRepository;
-import com.rc_app.riesgocrediticio.repository.UserRepository;
+package com.rc_app.Riesgocrediticio;
 
 // Importaciones para pruebas y utilidades
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.Test;
+import com.rc_app.Riesgocrediticio.model.FinancialInfo;
+import com.rc_app.Riesgocrediticio.model.User;
+import com.rc_app.Riesgocrediticio.repository.FinancialInfoRepository;
+import com.rc_app.Riesgocrediticio.repository.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;

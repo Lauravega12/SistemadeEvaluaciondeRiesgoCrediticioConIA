@@ -1,4 +1,4 @@
-package com.rc_app.riesgocrediticio.model;
+package com.rc_app.Riesgocrediticio.Model;
 
 public class AuthRequest {
     private String username;

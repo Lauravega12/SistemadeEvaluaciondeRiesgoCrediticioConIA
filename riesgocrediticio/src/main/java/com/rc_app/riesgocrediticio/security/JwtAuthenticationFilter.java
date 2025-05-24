@@ -1,4 +1,4 @@
-package com.rc_app.riesgocrediticio.security;
+package com.rc_app.Riesgocrediticio.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -11,7 +11,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import com.rc_app.riesgocrediticio.service.CustomUserDetailsService;
+
+import com.rc_app.Riesgocrediticio.service.CustomUserDetailsService;
 
 import java.io.IOException;
 

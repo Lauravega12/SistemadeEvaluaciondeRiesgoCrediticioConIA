@@ -1,4 +1,4 @@
-package com.rc_app.riesgocrediticio;
+package com.rc_app.Riesgocrediticio;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,11 +1,11 @@
-package com.rc_app.riesgocrediticio.service;
+package com.rc_app.Riesgocrediticio.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.rc_app.riesgocrediticio.model.User;
-import com.rc_app.riesgocrediticio.repository.UserRepository;
+import com.rc_app.Riesgocrediticio.model.User;
+import com.rc_app.Riesgocrediticio.repository.UserRepository;
 
 @Service
 public class UserService {

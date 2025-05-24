@@ -1,4 +1,4 @@
-package com.rc_app.riesgocrediticio.configuration;
+package com.rc_app.Riesgocrediticio.Configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
