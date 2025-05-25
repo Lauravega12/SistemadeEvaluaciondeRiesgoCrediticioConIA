@@ -1,8 +1,8 @@
-package com.rc_app.Riesgocrediticio.repository;
+package com.rc_app.riesgocrediticio.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.rc_app.Riesgocrediticio.model.User;
+import com.rc_app.riesgocrediticio.model.User;
 
 import java.util.Optional;
 

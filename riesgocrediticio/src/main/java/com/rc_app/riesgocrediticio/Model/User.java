@@ -1,4 +1,4 @@
-package com.rc_app.Riesgocrediticio.Model;
+package com.rc_app.riesgocrediticio.model;
 
 import java.util.Collection;
 import java.util.HashSet;

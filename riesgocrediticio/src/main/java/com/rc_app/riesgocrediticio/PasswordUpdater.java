@@ -1,9 +1,9 @@
-package com.rc_app.Riesgocrediticio;
+package com.rc_app.riesgocrediticio;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import com.rc_app.Riesgocrediticio.repository.UserRepository;
+import com.rc_app.riesgocrediticio.repository.UserRepository;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 

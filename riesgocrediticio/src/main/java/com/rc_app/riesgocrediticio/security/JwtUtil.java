@@ -1,4 +1,4 @@
-package com.rc_app.Riesgocrediticio.security;
+package com.rc_app.riesgocrediticio.security;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;

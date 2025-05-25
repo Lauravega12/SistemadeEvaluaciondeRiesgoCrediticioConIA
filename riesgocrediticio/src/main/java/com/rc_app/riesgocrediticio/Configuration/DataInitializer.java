@@ -1,9 +1,9 @@
-package com.rc_app.Riesgocrediticio.Configuration;
+package com.rc_app.riesgocrediticio.configuration;
 
-import com.rc_app.Riesgocrediticio.model.Role;
-import com.rc_app.Riesgocrediticio.model.User;
-import com.rc_app.Riesgocrediticio.repository.RoleRepository;
-import com.rc_app.Riesgocrediticio.repository.UserRepository;
+import com.rc_app.riesgocrediticio.model.Role;
+import com.rc_app.riesgocrediticio.model.User;
+import com.rc_app.riesgocrediticio.repository.RoleRepository;
+import com.rc_app.riesgocrediticio.repository.UserRepository;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;

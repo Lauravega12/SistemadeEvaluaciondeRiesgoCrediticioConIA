@@ -1,4 +1,4 @@
-package com.rc_app.Riesgocrediticio.Model;
+package com.rc_app.riesgocrediticio.model;
 
 public class AuthResponse {
     private String token;

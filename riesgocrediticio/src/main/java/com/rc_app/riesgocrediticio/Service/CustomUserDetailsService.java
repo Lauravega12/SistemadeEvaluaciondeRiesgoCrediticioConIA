@@ -1,7 +1,7 @@
-package com.rc_app.Riesgocrediticio.Service;
+package com.rc_app.riesgocrediticio.service;
 
-import com.rc_app.Riesgocrediticio.model.User;
-import com.rc_app.Riesgocrediticio.repository.UserRepository;
+import com.rc_app.riesgocrediticio.model.User;
+import com.rc_app.riesgocrediticio.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

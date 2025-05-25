@@ -1,4 +1,4 @@
-package com.rc_app.Riesgocrediticio.Controller;
+package com.rc_app.riesgocrediticio.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.rc_app.Riesgocrediticio.model.AuthResponse;
-import com.rc_app.Riesgocrediticio.model.LoginRequest;
-import com.rc_app.Riesgocrediticio.security.JwtUtil;
+import com.rc_app.riesgocrediticio.model.AuthResponse;
+import com.rc_app.riesgocrediticio.model.LoginRequest;
+import com.rc_app.riesgocrediticio.security.JwtUtil;
 
 @RestController
 @RequestMapping("/api/auth")

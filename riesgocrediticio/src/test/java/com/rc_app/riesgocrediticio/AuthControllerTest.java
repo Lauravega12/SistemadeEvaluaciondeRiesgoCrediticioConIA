@@ -1,4 +1,4 @@
-package com.rc_app.Riesgocrediticio;
+package com.rc_app.riesgocrediticio;
 
 import static org.mockito.Mockito.when;
 
@@ -9,8 +9,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.rc_app.Riesgocrediticio.model.User;
-import com.rc_app.Riesgocrediticio.service.UserService;
+import com.rc_app.riesgocrediticio.model.User;
+import com.rc_app.riesgocrediticio.service.UserService;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
