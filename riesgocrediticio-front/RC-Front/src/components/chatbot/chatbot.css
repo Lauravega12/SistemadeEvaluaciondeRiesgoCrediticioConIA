@@ -121,3 +121,23 @@
   line-height: 1;
 }
 
+#options {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+}
+
+#options button {
+  background-color: #378bc0;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+#options button:hover {
+  background-color: #2a73a8;
+}

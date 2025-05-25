@@ -1,7 +1,9 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import riesgo_ia
 
 app = Flask(__name__)
+CORS(app, origins=["http://localhost:5173"])
 
 @app.route('/evaluar_riesgo', methods=['POST'])
 def evaluar():
