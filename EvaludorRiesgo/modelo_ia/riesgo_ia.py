@@ -4,9 +4,13 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 import joblib
+import os
 
-# Cargar dataset simulado
-data = pd.read_csv("datos_riesgo.csv")
+
+
+script_dir = os.path.dirname(__file__)
+data_path = os.path.join(script_dir, "datos_riesgo.csv")
+data = pd.read_csv(data_path)
 
 # Convertir valores categóricos en números
 label_encoder_historial = LabelEncoder()
@@ -27,14 +31,15 @@ modelo = RandomForestClassifier()
 modelo.fit(X_train, y_train)
 
 # Guardar el modelo y los label encoders
-joblib.dump(modelo, "modelo_riesgo.pkl")
-joblib.dump(label_encoder_historial, "label_encoder_historial.pkl")
-joblib.dump(label_encoder_riesgo, "label_encoder_riesgo.pkl")
+joblib.dump(modelo, os.path.join(script_dir, "modelo_riesgo.pkl"))
+joblib.dump(label_encoder_historial, os.path.join(script_dir, "label_encoder_historial.pkl"))
+joblib.dump(label_encoder_riesgo, os.path.join(script_dir, "label_encoder_riesgo.pkl"))
 
-# Función para predecir riesgo
 def evaluar_riesgo(datos_usuario):
-    modelo = joblib.load("modelo_riesgo.pkl")
-    label_encoder_historial = joblib.load("label_encoder_historial.pkl")
+   
+    script_dir = os.path.dirname(__file__)
+    modelo = joblib.load(os.path.join(script_dir, "modelo_riesgo.pkl"))
+    label_encoder_historial = joblib.load(os.path.join(script_dir, "label_encoder_historial.pkl"))
 
     # Convertir historialPago a número
     datos_usuario[0] = label_encoder_historial.transform([datos_usuario[0]])[0]

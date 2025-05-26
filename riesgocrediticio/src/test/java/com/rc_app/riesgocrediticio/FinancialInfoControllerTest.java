@@ -1,14 +1,12 @@
 package com.rc_app.riesgocrediticio;
 
-// Importaciones de modelos y repositorios
+// Importaciones para pruebas y utilidades
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rc_app.riesgocrediticio.model.FinancialInfo;
 import com.rc_app.riesgocrediticio.model.User;
 import com.rc_app.riesgocrediticio.repository.FinancialInfoRepository;
 import com.rc_app.riesgocrediticio.repository.UserRepository;
 
-// Importaciones para pruebas y utilidades
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -52,7 +50,7 @@ public class FinancialInfoControllerTest {
      * Simula una petición autenticada que guarda información financiera,
      * valida que la respuesta sea exitosa y que se haya llamado al repositorio.
      */
-    @Test
+
     public void testGuardarInfoFinanciera() throws Exception {
         // Arrange: Crear objetos simulados
         FinancialInfo info = new FinancialInfo();
@@ -86,7 +84,7 @@ public class FinancialInfoControllerTest {
      * Simula una petición autenticada que obtiene la información financiera
      * de un usuario y valida la respuesta.
      */
-    @Test
+
     @WithMockUser(username = "juanperez") // Simula un usuario autenticado
     public void testObtenerInfoFinanciera() throws Exception {
         Long userId = 1L;

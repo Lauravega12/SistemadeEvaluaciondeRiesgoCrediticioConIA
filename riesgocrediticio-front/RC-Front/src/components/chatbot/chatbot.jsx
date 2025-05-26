@@ -1,80 +1,84 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { useChatbotLogic } from "./useChatbotLogic";
 import "./chatbot.css";
 
 function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState([]);
+  const {
+    messages,
+    showAuthorization,
+    currentQuestionIndex,
+    showTextInput,
+    questions,
+    messagesEndRef,
+    startChatbot,
+    handleAuthorization,
+    sendMessage,
+  } = useChatbotLogic();
 
   const toggleChatbot = () => {
     setIsOpen((prev) => {
       if (!prev) {
-        setMessages([
-          {
-            text: "¡Hola! Soy Stromper, tu asistente virtual. ¿En qué puedo ayudarte?",
-            type: "bot",
-            imgSrc: "/robot.png",
-          },
-        ]);
+        startChatbot();
       }
       return !prev;
     });
   };
 
-  const sendMessage = (event) => {
-    if (event.key === "Enter") {
-      const message = event.target.value.trim();
-      if (message) {
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          { text: message, type: "client" },
-        ]);
-
-        event.target.value = "";
-
-        setTimeout(() => {
-          setMessages((prevMessages) => [
-            ...prevMessages,
-            {
-              text: "Estoy procesando tu solicitud...",
-              type: "bot",
-              imgSrc: "/robot.png",
-            },
-          ]);
-        }, 1000);
-      }
-    }
-  };
-
   return (
     <div>
-      <div class="div-chat-contenedor">
-        {!isOpen && (
-          <button id="chatbot-btn" onClick={toggleChatbot}>
-            <img src="/icono_chat.png" alt="Chatbot Icon" />
+      {!isOpen && (
+        <button id="chatbot-btn" onClick={toggleChatbot}>
+          <img src="/icono_chat.png" alt="Chatbot Icon" />
+        </button>
+      )}
+
+      <div id="chatbot" className={isOpen ? "visible" : ""}>
+        <div id="chatbot-header">
+          <h4>Chat</h4>
+          <button className="close-btn" onClick={toggleChatbot}>
+            x
           </button>
+        </div>
+
+        <div id="messages">
+          {messages.map((msg, index) => (
+            <div key={index} className={`message ${msg.type}-message`}>
+              {msg.text}
+            </div>
+          ))}
+          <div ref={messagesEndRef} />
+        </div>
+
+        {showAuthorization && (
+          <div id="options">
+            <button onClick={() => handleAuthorization("Sí")}>Sí</button>
+            <button onClick={() => handleAuthorization("No")}>No</button>
+          </div>
         )}
-        <div id="chatbot" className={isOpen ? "visible" : ""}>
-          <div id="chatbot-header">
-            <h4>Chat</h4>
-            <button className="close-btn" onClick={toggleChatbot}>
-              x
-            </button>
-          </div>
-          <div id="messages">
-            {messages.map((msg, index) => (
-              <div key={index} className={`message ${msg.type}-message`}>
-                {msg.type === "bot" && <img src={msg.imgSrc} alt="Bot" />}
-                {msg.text}
-              </div>
-            ))}
-          </div>
+
+        {currentQuestionIndex !== null &&
+          !showTextInput &&
+          questions[currentQuestionIndex].options && (
+            <div id="options">
+              {questions[currentQuestionIndex].options.map((option) => (
+                <button key={option} onClick={() => sendMessage(option)}>
+                  {option}
+                </button>
+              ))}
+            </div>
+          )}
+
+        {showTextInput && (
           <input
             id="input-box"
-            type="text"
+            type="number"
             placeholder="Escribe aquí..."
-            onKeyUp={sendMessage}
+            onKeyUp={(e) => {
+              if (e.key === "Enter") sendMessage(e.target.value);
+            }}
           />
-        </div>{" "}
+        )}
       </div>
     </div>
   );

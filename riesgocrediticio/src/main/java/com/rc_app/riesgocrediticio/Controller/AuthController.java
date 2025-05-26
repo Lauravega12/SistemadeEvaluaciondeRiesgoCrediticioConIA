@@ -1,42 +1,52 @@
 package com.rc_app.riesgocrediticio.controller;
 
-import com.rc_app.riesgocrediticio.model.User;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.rc_app.riesgocrediticio.service.UserService;
+
+import com.rc_app.riesgocrediticio.model.AuthResponse;
+import com.rc_app.riesgocrediticio.model.LoginRequest;
+import com.rc_app.riesgocrediticio.security.JwtUtil;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 public class AuthController {
 
-    private final UserService userService;
-    private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
+    private final JwtUtil jwtUtil;
 
-    public AuthController(UserService userService, PasswordEncoder passwordEncoder) {
-        this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
+    public AuthController(AuthenticationManager authenticationManager, JwtUtil jwtUtil) {
+        this.authenticationManager = authenticationManager;
+        this.jwtUtil = jwtUtil;
     }
 
-    @PostMapping("/register")
-    public User register(@RequestBody User user) {
-        return userService.register(user);
-    }
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
 
-    @GetMapping("/login") 
-    public ResponseEntity<String> login(@RequestParam String username, @RequestParam String password) {
-        User user = userService.findByUsername(username);
-        if (user != null && passwordEncoder.matches(password, user.getPassword())) {
-            return ResponseEntity.ok("Login correcto" );
-            
-        }
-        System.out.println("Credenciales inválidas para el usuario: " + username);
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales inválidas");
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        String token = jwtUtil.generateToken(authentication);
+
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        // Obtenemos todos los roles del usuario como lista de strings
+        List<String> roles = userDetails.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(new AuthResponse(token, roles));
     }
 }

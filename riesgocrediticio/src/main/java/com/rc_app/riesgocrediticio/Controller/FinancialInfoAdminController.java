@@ -2,6 +2,7 @@ package com.rc_app.riesgocrediticio.controller;
 
 import com.rc_app.riesgocrediticio.model.FinancialInfo;
 import com.rc_app.riesgocrediticio.repository.FinancialInfoRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;

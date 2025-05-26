@@ -1,6 +1,6 @@
 import "./navbar.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Inicio from "../../pages/incio/inicio";
+import Inicio from "../../pages/inicio/inicio";
 
 function navbar() {
   return (

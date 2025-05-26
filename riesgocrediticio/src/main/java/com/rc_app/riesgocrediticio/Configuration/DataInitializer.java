@@ -4,6 +4,7 @@ import com.rc_app.riesgocrediticio.model.Role;
 import com.rc_app.riesgocrediticio.model.User;
 import com.rc_app.riesgocrediticio.repository.RoleRepository;
 import com.rc_app.riesgocrediticio.repository.UserRepository;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;

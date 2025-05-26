@@ -2,7 +2,7 @@ import "./registro.css";
 
 function registro() {
   return (
-    <div>
+    <div class="registro-contenedor">
       <div class="card">
         <div class="card2">
           <form class="form">

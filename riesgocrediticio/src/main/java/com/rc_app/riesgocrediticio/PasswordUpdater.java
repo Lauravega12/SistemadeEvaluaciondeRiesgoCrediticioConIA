@@ -4,6 +4,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import com.rc_app.riesgocrediticio.repository.UserRepository;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Component

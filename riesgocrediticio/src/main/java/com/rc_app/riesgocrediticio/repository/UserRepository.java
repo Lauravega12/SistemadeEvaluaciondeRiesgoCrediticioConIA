@@ -1,10 +1,13 @@
 package com.rc_app.riesgocrediticio.repository;
 
-import com.rc_app.riesgocrediticio.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import com.rc_app.riesgocrediticio.model.User;
+
 import java.util.Optional;
+import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Long> {
+
     Optional<User> findByUsername(String username);
 
     boolean existsByUsername(String username);

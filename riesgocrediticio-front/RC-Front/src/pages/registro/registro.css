@@ -1,3 +1,9 @@
+.registro-contenedor{
+  display: flex;
+  justify-content: center; /* Centra en eje X */
+  align-items: center;     /* Centra en eje Y */
+  height: 100vh;           /* ocupa toda la pantalla */
+}
 .form {
   display: flex;
   flex-direction: column;
@@ -5,7 +11,7 @@
   padding-left: 2em;
   padding-right: 2em;
   padding-bottom: 0.4em;
-  background-color: #171717;
+  background-color: #d3d3d3;
   border-radius: 25px;
   transition: 0.4s ease-in-out;
 }
@@ -33,7 +39,7 @@
 #heading {
   text-align: center;
   margin: 2em;
-  color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
   font-size: 1.2em;
 }
 
@@ -46,7 +52,7 @@
   padding: 0.6em;
   border: none;
   outline: none;
-  color: white;
+  color: rgb(255, 255, 255);
   background-color: #171717;
   box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
 }
@@ -54,7 +60,7 @@
 .input-icon {
   height: 1.3em;
   width: 1.3em;
-  fill: white;
+  fill: rgb(255, 255, 255);
 }
 
 .input-field {
@@ -62,7 +68,7 @@
   border: none;
   outline: none;
   width: 100%;
-  color: #d3d3d3;
+  color: #ffffff;
 }
 
 .form .btn {
@@ -82,12 +88,12 @@
   outline: none;
   transition: 0.4s ease-in-out;
   background-color: #252525;
-  color: white;
+  color: rgb(255, 255, 255);
 }
 
 .button1:hover {
   background-color: black;
-  color: white;
+  color: rgb(255, 255, 255);
 }
 
 .button2 {
@@ -99,7 +105,7 @@
   outline: none;
   transition: 0.4s ease-in-out;
   background-color: #252525;
-  color: white;
+  color: rgb(255, 255, 255);
 }
 
 .button2:hover {
