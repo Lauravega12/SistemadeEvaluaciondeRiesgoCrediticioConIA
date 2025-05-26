@@ -1,28 +1,58 @@
 package com.rc_app.riesgocrediticio.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.rc_app.riesgocrediticio.model.User;
-import com.rc_app.riesgocrediticio.repository.UserRepository;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.rc_app.riesgocrediticio.repository.AssessmentRepository;
+import com.rc_app.riesgocrediticio.DTO.UserDTO;
+import com.rc_app.riesgocrediticio.model.Assessment;
 
 @Service
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final AssessmentRepository assessmentRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    public User register(User user) {
-
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
+    public UserService(AssessmentRepository assessmentRepository) {
+        this.assessmentRepository = assessmentRepository;
     }
 
-    public User findByUsername(String username) {
-        return userRepository.findByUsername(username).orElse(null);
+    public List<UserDTO> getFilteredUsers(String userIdStr, String username, String riskLevel) {
+        return assessmentRepository.findAll().stream()
+                .filter(assessment -> {
+                    // Filtrar por user_id (si se proporciona)
+                    if (userIdStr != null && !userIdStr.isEmpty()) {
+                        try {
+                            Long userId = Long.parseLong(userIdStr);
+                            if (!assessment.getUser().getId().equals(userId)) {
+                                return false;
+                            }
+                        } catch (NumberFormatException e) {
+                            return false;
+                        }
+                    }
+
+                    // Filtrar por username
+                    if (username != null && !username.isEmpty()) {
+                        if (!assessment.getUser().getUsername().toLowerCase().contains(username.toLowerCase())) {
+                            return false;
+                        }
+                    }
+
+                    // Filtrar por risk_level (tipoRiesgo)
+                    if (riskLevel != null && !riskLevel.isEmpty()) {
+                        if (!assessment.getTipoRiesgo().toLowerCase().contains(riskLevel.toLowerCase())) {
+                            return false;
+                        }
+                    }
+
+                    return true;
+                })
+                .map(a -> new UserDTO(
+                        a.getUser().getId(),
+                        a.getUser().getUsername(),
+                        a.getTipoRiesgo()))
+                .collect(Collectors.toList());
     }
 }

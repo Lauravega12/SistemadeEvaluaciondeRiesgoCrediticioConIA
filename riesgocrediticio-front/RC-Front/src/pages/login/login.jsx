@@ -14,19 +14,39 @@ export default function Login() {
     console.log("Intentando iniciar sesión...");
 
     try {
-      const response = await axios.get("http://localhost:8080/auth/login", {
-        params: { username, password },
-      });
+      const response = await axios.post(
+        "http://localhost:8080/api/auth/login",
+        {
+          username,
+          password,
+        }
+      );
 
       if (response.status === 200) {
-        console.log("Login exitoso:", response.data);
+        const { token, roles } = response.data;
+
+        // Guardamos el token y roles
+        localStorage.setItem("token", token);
+        localStorage.setItem("roles", JSON.stringify(roles));
+
         setError("");
-        navigate("/inicio"); // redirige a la vista principal
+
+        // Revisamos si el usuario tiene rol ADMIN
+        if (roles.includes("ADMIN")) {
+          console.log("Redirigiendo al panel admin...");
+          navigate("/admin");
+        } else {
+          console.log("Redirigiendo a inicio normal...");
+          navigate("/inicio");
+        }
       } else {
         setError("Credenciales inválidas");
       }
     } catch (error) {
-      const mensaje = error.response?.data || "Error De Servidor";
+      const mensaje =
+        error.response?.data?.message ||
+        error.response?.data ||
+        "Error del servidor";
       setError(`Error Login: ${mensaje}`);
     }
   };

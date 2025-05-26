@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,16 +24,31 @@ public class User implements UserDetails {
     private String username;
 
     @Column(nullable = false)
+    @JsonIgnore // para no exponer el password al devolver el objeto como JSON
     private String password;
 
+    @Column(nullable = false)
     private boolean enabled = true;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    // Constructores, getters y setters básicos
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore // para evitar problemas de recursión o pereza al serializar
+    private Assessment assessment;
 
+    // --- Constructores ---
+    public User() {
+    }
+
+    public User(String username, String password, boolean enabled) {
+        this.username = username;
+        this.password = password;
+        this.enabled = enabled;
+    }
+
+    // --- Getters y Setters ---
     public Long getId() {
         return id;
     }
@@ -71,8 +87,26 @@ public class User implements UserDetails {
         this.roles.add(role);
     }
 
-    // Implementación de UserDetails
+    public Assessment getAssessment() {
+        return assessment;
+    }
 
+    public void setAssessment(Assessment assessment) {
+        this.assessment = assessment;
+        if (assessment != null) {
+            assessment.setUser(this); // sincronizamos ambos lados de la relación
+        }
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    // --- Métodos de UserDetails ---
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream()
@@ -95,12 +129,9 @@ public class User implements UserDetails {
         return true;
     }
 
+    // --- Opcional: método útil para depurar ---
     @Override
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
+    public String toString() {
+        return "User{id=" + id + ", username='" + username + "', enabled=" + enabled + "}";
     }
 }
