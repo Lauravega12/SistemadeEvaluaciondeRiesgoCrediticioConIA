@@ -1,37 +1,37 @@
 package com.rc_app.riesgocrediticio.DTO;
 
 public class UserDTO {
-    private Long id;
-    private String username;
-    private String tipoRiesgo;
+    private Long userId;
+    private String userName;
+    private String riskLevel;
 
-    public UserDTO(Long id, String username, String tipoRiesgo) {
-        this.id = id;
-        this.username = username;
-        this.tipoRiesgo = tipoRiesgo;
+    public UserDTO(Long userId, String userName, String riskLevel) {
+        this.userId = userId;
+        this.userName = userName;
+        this.riskLevel = riskLevel;
     }
 
-    public Long getId() {
-        return id;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getTipoRiesgo() {
-        return tipoRiesgo;
+    public String getRiskLevel() {
+        return riskLevel;
     }
 
-    public void setTipoRiesgo(String tipoRiesgo) {
-        this.tipoRiesgo = tipoRiesgo;
+    public void setRiskLevel(String riskLevel) {
+        this.riskLevel = riskLevel;
     }
 }

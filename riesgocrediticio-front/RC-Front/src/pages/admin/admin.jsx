@@ -5,30 +5,34 @@ import Navbar from "../../components/navbar/navbar";
 import Footer from "../../components/footer/footer";
 
 function Admin() {
-  const [assessments, setAssessments] = useState([]);
-  const [filtroNombre, setFiltroNombre] = useState("");
-  const [filtroApellido, setFiltroApellido] = useState("");
-  const [filtroRiesgo, setFiltroRiesgo] = useState("");
+  const [users, setUsers] = useState([]);
+  const [filtroUserId, setFiltroUserId] = useState("");
+  const [filtroUsername, setFiltroUsername] = useState("");
+  const [filtroRiskLevel, setFiltroRiskLevel] = useState("");
   const [usuarioSeleccionado, setUsuarioSeleccionado] = useState(null);
 
-  useEffect(() => {
+  // Función para pedir datos al backend con filtros
+  const fetchUsers = () => {
+    // Armar los params solo si hay valores para enviar
+    const params = {};
+    if (filtroUserId) params.userId = filtroUserId;
+    if (filtroUsername) params.username = filtroUsername;
+    if (filtroRiskLevel) params.riskLevel = filtroRiskLevel;
+
     axios
-      .get("http://localhost:8080/api/assessments")
+      .get("http://localhost:8080/api/admin/usuarios", { params })
       .then((response) => {
-        setAssessments(response.data);
+        setUsers(response.data);
       })
       .catch((error) => {
-        console.error("Error al obtener los assessments:", error);
+        console.error("Error al obtener usuarios filtrados:", error);
       });
-  }, []);
+  };
 
-  // Filtro sencillo para nombre, apellido y riesgo
-  const filtrados = assessments.filter(
-    (a) =>
-      a.nombre.toLowerCase().includes(filtroNombre.toLowerCase()) &&
-      a.apellido.toLowerCase().includes(filtroApellido.toLowerCase()) &&
-      a.tipoRiesgo.toLowerCase().includes(filtroRiesgo.toLowerCase())
-  );
+  // Traer datos cada vez que cambia un filtro
+  useEffect(() => {
+    fetchUsers();
+  }, [filtroUserId, filtroUsername, filtroRiskLevel]);
 
   return (
     <div className="admin-page">
@@ -38,7 +42,6 @@ function Admin() {
       <br />
 
       <h2>Usuarios</h2>
-
       <br />
       <br />
 
@@ -46,48 +49,44 @@ function Admin() {
       <div className="filtros">
         <input
           type="text"
-          placeholder="Filtrar por nombre"
-          value={filtroNombre}
-          onChange={(e) => setFiltroNombre(e.target.value)}
+          placeholder="Filtrar por ID"
+          value={filtroUserId}
+          onChange={(e) => setFiltroUserId(e.target.value)}
         />
         <input
           type="text"
-          placeholder="Filtrar por apellido"
-          value={filtroApellido}
-          onChange={(e) => setFiltroApellido(e.target.value)}
+          placeholder="Filtrar por nombre de usuario"
+          value={filtroUsername}
+          onChange={(e) => setFiltroUsername(e.target.value)}
         />
         <input
           type="text"
-          placeholder="Filtrar por riesgo"
-          value={filtroRiesgo}
-          onChange={(e) => setFiltroRiesgo(e.target.value)}
+          placeholder="Filtrar por nivel de riesgo"
+          value={filtroRiskLevel}
+          onChange={(e) => setFiltroRiskLevel(e.target.value)}
         />
       </div>
 
       {/* Tabla dinámica */}
-      <div class="contenedor-tabla">
-        {" "}
-        {/* Aquí corregí className */}
-        <table class="tabla-usuarios">
+      <div className="contenedor-tabla">
+        <table className="tabla-usuarios">
           <thead>
             <tr>
               <th>ID</th>
-              <th>Nombre</th>
-              <th>Apellido</th>
+              <th>Nombre de usuario</th>
               <th>Riesgo</th>
             </tr>
           </thead>
           <tbody>
-            {filtrados.map((user) => (
+            {users.map((user) => (
               <tr
-                key={user.id}
+                key={user.userId}
                 onClick={() => setUsuarioSeleccionado(user)}
-                style={{ cursor: "pointer" }} // Para que se note que es clickeable
+                style={{ cursor: "pointer" }}
               >
-                <td>{user.id}</td>
-                <td>{user.nombre}</td>
-                <td>{user.apellido}</td>
-                <td>{user.tipoRiesgo}</td>
+                <td>{user.userId}</td>
+                <td>{user.username}</td>
+                <td>{user.riskLevel}</td>
               </tr>
             ))}
           </tbody>
@@ -99,40 +98,18 @@ function Admin() {
         <div className="detalle-usuario">
           <h3>Detalles del Usuario</h3>
           <p>
-            <strong>ID:</strong> {usuarioSeleccionado.id}
+            <strong>ID:</strong> {usuarioSeleccionado.userId}
           </p>
           <p>
-            <strong>Nombre:</strong> {usuarioSeleccionado.nombre}
+            <strong>Nombre de usuario:</strong> {usuarioSeleccionado.username}
           </p>
           <p>
-            <strong>Apellido:</strong> {usuarioSeleccionado.apellido}
+            <strong>Riesgo:</strong> {usuarioSeleccionado.riskLevel}
           </p>
-          <p>
-            <strong>Edad:</strong> {usuarioSeleccionado.edad}
-          </p>
-          <p>
-            <strong>Ingresos:</strong> {usuarioSeleccionado.ingresos}
-          </p>
-          <p>
-            <strong>Deudas:</strong> {usuarioSeleccionado.deudas}
-          </p>
-          <p>
-            <strong>Riesgo:</strong> {usuarioSeleccionado.tipoRiesgo}
-          </p>
-          <p>
-            <strong>Comentario:</strong> {usuarioSeleccionado.comentario}
-          </p>
+          {/* Aquí puedes agregar más detalles si los tienes */}
         </div>
       )}
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
+
       <br />
       <br />
       <Footer />

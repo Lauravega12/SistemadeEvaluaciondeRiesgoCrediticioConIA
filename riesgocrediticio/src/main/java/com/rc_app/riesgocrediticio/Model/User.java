@@ -1,16 +1,15 @@
 package com.rc_app.riesgocrediticio.model;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import jakarta.persistence.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users")
@@ -24,7 +23,7 @@ public class User implements UserDetails {
     private String username;
 
     @Column(nullable = false)
-    @JsonIgnore // para no exponer el password al devolver el objeto como JSON
+    @JsonIgnore // No mostrar el password en respuestas JSON
     private String password;
 
     @Column(nullable = false)
@@ -35,7 +34,7 @@ public class User implements UserDetails {
     private Set<Role> roles = new HashSet<>();
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnore // para evitar problemas de recursión o pereza al serializar
+    @JsonIgnore
     private Assessment assessment;
 
     // --- Constructores ---
@@ -75,6 +74,14 @@ public class User implements UserDetails {
         this.password = password;
     }
 
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
     public Set<Role> getRoles() {
         return roles;
     }
@@ -94,42 +101,39 @@ public class User implements UserDetails {
     public void setAssessment(Assessment assessment) {
         this.assessment = assessment;
         if (assessment != null) {
-            assessment.setUser(this); // sincronizamos ambos lados de la relación
+            assessment.setUser(this); // sincroniza ambos lados de la relación
         }
-    }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
     }
 
     // --- Métodos de UserDetails ---
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream()
-                .map(role -> new SimpleGrantedAuthority(role.getRole()))
+                .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getRole())) // CLAVE para que funcione el
+                                                                                   // hasRole("ADMIN") y "USER"
                 .collect(Collectors.toList());
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonLocked() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
-    // --- Opcional: método útil para depurar ---
+    // --- toString útil para debugging ---
     @Override
     public String toString() {
         return "User{id=" + id + ", username='" + username + "', enabled=" + enabled + "}";

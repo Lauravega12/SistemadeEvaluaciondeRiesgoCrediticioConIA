@@ -32,7 +32,7 @@ export default function Login() {
         setError("");
 
         // Revisamos si el usuario tiene rol ADMIN
-        if (roles.includes("ADMIN")) {
+        if (roles.includes("ROLE_ADMIN")) {
           console.log("Redirigiendo al panel admin...");
           navigate("/admin");
         } else {

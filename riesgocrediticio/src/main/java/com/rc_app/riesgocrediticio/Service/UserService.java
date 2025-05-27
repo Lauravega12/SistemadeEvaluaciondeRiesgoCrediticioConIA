@@ -42,7 +42,7 @@ public class UserService {
 
                     // Filtrar por risk_level (tipoRiesgo)
                     if (riskLevel != null && !riskLevel.isEmpty()) {
-                        if (!assessment.getTipoRiesgo().toLowerCase().contains(riskLevel.toLowerCase())) {
+                        if (!assessment.getRiskLevel().toLowerCase().contains(riskLevel.toLowerCase())) {
                             return false;
                         }
                     }
@@ -52,7 +52,7 @@ public class UserService {
                 .map(a -> new UserDTO(
                         a.getUser().getId(),
                         a.getUser().getUsername(),
-                        a.getTipoRiesgo()))
+                        a.getRiskLevel()))
                 .collect(Collectors.toList());
     }
 }

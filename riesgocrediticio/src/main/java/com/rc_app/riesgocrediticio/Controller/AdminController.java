@@ -33,7 +33,7 @@ public class AdminController {
                 .filter(user -> username == null || user.getUsername().toLowerCase().contains(username.toLowerCase()))
                 .map(user -> {
                     Assessment a = assessmentRepository.findByUserId(user.getId()).orElse(null);
-                    String risk = (a != null) ? a.getTipoRiesgo() : null;
+                    String risk = (a != null) ? a.getRiskLevel() : null;
                     return new UserWithAssessmentDTO(user.getId(), user.getUsername(), risk);
                 })
                 .filter(dto -> riskLevel == null
