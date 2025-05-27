@@ -11,25 +11,29 @@ function Admin() {
   const [filtroRiskLevel, setFiltroRiskLevel] = useState("");
   const [usuarioSeleccionado, setUsuarioSeleccionado] = useState(null);
 
-  // Función para pedir datos al backend con filtros
   const fetchUsers = () => {
-    // Armar los params solo si hay valores para enviar
     const params = {};
     if (filtroUserId) params.userId = filtroUserId;
     if (filtroUsername) params.username = filtroUsername;
     if (filtroRiskLevel) params.riskLevel = filtroRiskLevel;
 
     axios
-      .get("http://localhost:8080/api/admin/usuarios", { params })
+      .get("http://localhost:8080/api/admin/assessments", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        params,
+      })
       .then((response) => {
+        console.log("Datos recibidos:", response.data);
         setUsers(response.data);
       })
       .catch((error) => {
-        console.error("Error al obtener usuarios filtrados:", error);
+        console.error("Error al obtener los usuarios:", error);
+        setUsers([]);
       });
   };
 
-  // Traer datos cada vez que cambia un filtro
   useEffect(() => {
     fetchUsers();
   }, [filtroUserId, filtroUsername, filtroRiskLevel]);
@@ -37,13 +41,10 @@ function Admin() {
   return (
     <div className="admin-page">
       <Navbar />
-      <br />
-      <br />
-      <br />
+      <br /><br /><br />
 
       <h2>Usuarios</h2>
-      <br />
-      <br />
+      <br /><br />
 
       {/* Filtros */}
       <div className="filtros">
@@ -80,13 +81,13 @@ function Admin() {
           <tbody>
             {users.map((user) => (
               <tr
-                key={user.userId}
+                key={user.id}
                 onClick={() => setUsuarioSeleccionado(user)}
                 style={{ cursor: "pointer" }}
               >
-                <td>{user.userId}</td>
-                <td>{user.username}</td>
-                <td>{user.riskLevel}</td>
+                <td>{user.id}</td>
+                <td>{user.userName}</td>
+                <td>{user.riskLevel || "No definido"}</td>
               </tr>
             ))}
           </tbody>
@@ -97,21 +98,13 @@ function Admin() {
       {usuarioSeleccionado && (
         <div className="detalle-usuario">
           <h3>Detalles del Usuario</h3>
-          <p>
-            <strong>ID:</strong> {usuarioSeleccionado.userId}
-          </p>
-          <p>
-            <strong>Nombre de usuario:</strong> {usuarioSeleccionado.username}
-          </p>
-          <p>
-            <strong>Riesgo:</strong> {usuarioSeleccionado.riskLevel}
-          </p>
-          {/* Aquí puedes agregar más detalles si los tienes */}
+          <p><strong>ID:</strong> {usuarioSeleccionado.id}</p>
+          <p><strong>Nombre de usuario:</strong> {usuarioSeleccionado.userName}</p>
+          <p><strong>Riesgo:</strong> {usuarioSeleccionado.riskLevel || "No definido"}</p>
         </div>
       )}
 
-      <br />
-      <br />
+      <br /><br />
       <Footer />
     </div>
   );

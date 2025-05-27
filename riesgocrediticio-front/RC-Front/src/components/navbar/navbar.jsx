@@ -2,16 +2,16 @@ import "./navbar.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Inicio from "../../pages/inicio/inicio";
 
-function navbar() {
+function Navbar() {
   return (
     <div>
-      <nav class="navbar-nav">
+      <nav className="navbar-nav">
         <a>
           <h1>Riesgo Crediticio</h1>
         </a>
-        <ul class="navbar-ul">
+        <ul className="navbar-ul">
           <button>
-            <span class="box">Salir</span>
+            <span className="box">Salir</span>
           </button>
         </ul>
       </nav>
@@ -19,4 +19,4 @@ function navbar() {
   );
 }
 
-export default navbar;
+export default Navbar;
