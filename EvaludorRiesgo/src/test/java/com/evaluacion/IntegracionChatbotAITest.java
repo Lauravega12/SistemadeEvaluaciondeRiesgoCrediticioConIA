@@ -19,12 +19,12 @@ public class IntegracionChatbotAITest {
         String jsonInput = """
         {
           "historialPago": "Bueno",
-          "ingresos": 3000.0,
-          "deuda": 500.0,
+          "ingresos": 3000,
+          "deuda": 500,
           "creditosActivos": 2,
           "edad": 30,
           "tiempoEmpleo": 5,
-          "montoSolicitado": 1000.0
+          "montoSolicitado": 1000
         }
         """;
 
