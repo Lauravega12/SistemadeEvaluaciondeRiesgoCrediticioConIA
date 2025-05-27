@@ -1,4 +1,4 @@
-package com.rc_app.riesgocrediticio.dto;
+package com.rc_app.riesgocrediticio.DTO;
 
 public class UserAssessmentDTO {
     private Long userId;
@@ -12,12 +12,27 @@ public class UserAssessmentDTO {
     }
 
     // Getters y setters
-    public Long getUserId() { return userId; }
-    public String getUsername() { return username; }
-    public String getRiskLevel() { return riskLevel; }
+    public Long getUserId() {
+        return userId;
+    }
 
-    public void setUserId(Long userId) { this.userId = userId; }
-    public void setUsername(String username) { this.username = username; }
-    public void setRiskLevel(String riskLevel) { this.riskLevel = riskLevel; }
+    public String getUsername() {
+        return username;
+    }
+
+    public String getRiskLevel() {
+        return riskLevel;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setRiskLevel(String riskLevel) {
+        this.riskLevel = riskLevel;
+    }
 }
-

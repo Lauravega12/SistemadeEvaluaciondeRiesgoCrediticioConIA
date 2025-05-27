@@ -5,46 +5,59 @@ import Navbar from "../../components/navbar/navbar";
 import Footer from "../../components/footer/footer";
 
 function Admin() {
-  const [users, setUsers] = useState([]);
+  const [todosLosUsuarios, setTodosLosUsuarios] = useState([]);
+  const [usuariosFiltrados, setUsuariosFiltrados] = useState([]);
   const [filtroUserId, setFiltroUserId] = useState("");
   const [filtroUsername, setFiltroUsername] = useState("");
   const [filtroRiskLevel, setFiltroRiskLevel] = useState("");
   const [usuarioSeleccionado, setUsuarioSeleccionado] = useState(null);
 
-  const fetchUsers = () => {
-    const params = {};
-    if (filtroUserId) params.userId = filtroUserId;
-    if (filtroUsername) params.username = filtroUsername;
-    if (filtroRiskLevel) params.riskLevel = filtroRiskLevel;
-
+  useEffect(() => {
     axios
       .get("http://localhost:8080/api/admin/assessments", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        params,
       })
       .then((response) => {
-        console.log("Datos recibidos:", response.data);
-        setUsers(response.data);
+        setTodosLosUsuarios(response.data);
+        setUsuariosFiltrados(response.data);
       })
       .catch((error) => {
         console.error("Error al obtener los usuarios:", error);
-        setUsers([]);
+        setTodosLosUsuarios([]);
+        setUsuariosFiltrados([]);
       });
-  };
+  }, []);
 
   useEffect(() => {
-    fetchUsers();
-  }, [filtroUserId, filtroUsername, filtroRiskLevel]);
+    const filtrados = todosLosUsuarios.filter((user) => {
+      const matchId =
+        filtroUserId === "" ||
+        String(user.user.id).includes(filtroUserId.trim());
+      const matchUsername =
+        filtroUsername === "" ||
+        user.user.username
+          .toLowerCase()
+          .includes(filtroUsername.toLowerCase().trim());
+      const matchRisk =
+        filtroRiskLevel === "" ||
+        user.riskLevel
+          ?.toLowerCase()
+          .includes(filtroRiskLevel.toLowerCase().trim());
+      return matchId && matchUsername && matchRisk;
+    });
+
+    setUsuariosFiltrados(filtrados);
+  }, [filtroUserId, filtroUsername, filtroRiskLevel, todosLosUsuarios]);
 
   return (
     <div className="admin-page">
       <Navbar />
-      <br /><br /><br />
-
+      <br />
+      <br />
+      <br />
       <h2>Usuarios</h2>
-      <br /><br />
 
       {/* Filtros */}
       <div className="filtros">
@@ -79,14 +92,14 @@ function Admin() {
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
+            {usuariosFiltrados.map((user) => (
               <tr
                 key={user.id}
                 onClick={() => setUsuarioSeleccionado(user)}
                 style={{ cursor: "pointer" }}
               >
-                <td>{user.id}</td>
-                <td>{user.userName}</td>
+                <td>{user.user.id}</td>
+                <td>{user.user.username}</td>
                 <td>{user.riskLevel || "No definido"}</td>
               </tr>
             ))}
@@ -94,17 +107,51 @@ function Admin() {
         </table>
       </div>
 
-      {/* Detalle del usuario al hacer click */}
+      {/* Detalle del usuario */}
       {usuarioSeleccionado && (
         <div className="detalle-usuario">
           <h3>Detalles del Usuario</h3>
-          <p><strong>ID:</strong> {usuarioSeleccionado.id}</p>
-          <p><strong>Nombre de usuario:</strong> {usuarioSeleccionado.userName}</p>
-          <p><strong>Riesgo:</strong> {usuarioSeleccionado.riskLevel || "No definido"}</p>
+          <p>
+            <strong>ID:</strong> {usuarioSeleccionado.user.id}
+          </p>
+          <p>
+            <strong>Username:</strong> {usuarioSeleccionado.user.username}
+          </p>
+          <p>
+            <strong>Ingreso:</strong> {usuarioSeleccionado.income}
+          </p>
+          <p>
+            <strong>Deuda:</strong> {usuarioSeleccionado.debt}
+          </p>
+          <p>
+            <strong>Créditos activos:</strong>{" "}
+            {usuarioSeleccionado.activeCredits}
+          </p>
+          <p>
+            <strong>Edad:</strong> {usuarioSeleccionado.age}
+          </p>
+          <p>
+            <strong>Tiempo de empleo:</strong>{" "}
+            {usuarioSeleccionado.employmentDuration} meses
+          </p>
+          <p>
+            <strong>Monto solicitado:</strong>{" "}
+            {usuarioSeleccionado.requestedAmount}
+          </p>
+          <p>
+            <strong>Riesgo:</strong> {usuarioSeleccionado.riskLevel}
+          </p>
+          <p>
+            <strong>Creado:</strong>{" "}
+            {new Date(usuarioSeleccionado.createdAt).toLocaleString()}
+          </p>
+          <p>
+            <strong>Rol:</strong>{" "}
+            {usuarioSeleccionado.user.roles.map((r) => r.role).join(", ")}
+          </p>
         </div>
       )}
 
-      <br /><br />
       <Footer />
     </div>
   );
