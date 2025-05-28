@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 
+
 @RestController
 @RequestMapping("/api/admin/assessments")
 @PreAuthorize("hasRole('ADMIN')") // Protege todo el controlador
