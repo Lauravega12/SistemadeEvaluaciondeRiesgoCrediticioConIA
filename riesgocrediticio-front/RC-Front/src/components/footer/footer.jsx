@@ -1,28 +1,43 @@
-import "./footer.css";
 import React from "react";
+import "./footer.css";
 
 function Footer() {
   return (
-    <div>
-      <div className="footer-contenedor">
-        <article>
-          <h3 className="footer-contactanos"></h3>
-          <ul className="footer-contenido">
-            <li>Contactanos</li>
-            <li>uniminuto</li>
-            <li>Bogota +57 (313) 2893595</li>
-            <li>Linea Gratuita +57 (311) 8662259</li>
-            <li>lcsalazar08@gmail.com</li>
-            <li>ds.sebas21@gmail.com</li>
-          </ul>
-        </article>
-        <h4 className="footer-contenido">
-          producto original evaluado y financiado por uniminuto
-          <br />
-          INGENIERIA DE SISTEMAS <br /> 1/06/2025
-        </h4>
+    <footer className="footer-container">
+      <div className="footer-content">
+        {/* Sección de contacto */}
+        <div className="footer-section">
+          <h3 className="footer-title">Contacto</h3>
+          <div className="contact-info">
+            <p className="contact-item">UNIMINUTO - Bogotá</p>
+            <p className="contact-item">Tel: +57 (313) 289-3595</p>
+            <p className="contact-item">Línea Gratuita: +57 (311) 866-2259</p>
+            <p className="contact-item">lcsalazar08@gmail.com</p>
+            <p className="contact-item">ds.sebas21@gmail.com</p>
+          </div>
+        </div>
+
+        {/* Sección de información del proyecto */}
+        <div className="footer-section">
+          <h3 className="footer-title">Información del Proyecto</h3>
+          <div className="project-info">
+            <p className="project-description">
+              Producto original evaluado y financiado por UNIMINUTO
+            </p>
+            <p className="program">INGENIERÍA DE SISTEMAS</p>
+            <p className="date">1/06/2025</p>
+          </div>
+        </div>
       </div>
-    </div>
+
+      {/* Línea divisoria */}
+      <hr className="footer-divider" />
+
+      {/* Copyright */}
+      <div className="footer-bottom">
+        <p>&copy; 2025 UNIMINUTO. Todos los derechos reservados.</p>
+      </div>
+    </footer>
   );
 }
 

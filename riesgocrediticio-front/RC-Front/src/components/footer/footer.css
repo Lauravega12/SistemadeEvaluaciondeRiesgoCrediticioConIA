@@ -1,29 +1,256 @@
-.footer-contenedor {
-    border-radius: 20px 20px 0 0;
-    background-color: #211191;
-    width: auto;
-    height: auto;
-    z-index: 100;
-    display: flex;
-    flex-wrap: wrap; /* ¡Aquí está la magia! */
-    gap: 10px;        /* Espacio entre los hijos */
-    padding: 10px;
-    
+/* Contenedor principal del footer */
+.footer-container {
+  background-color: #1e2a4a;
+  color: #ffffff;
+  padding: 40px 20px 20px;
+  margin-top: auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.footer-contenido {
-    
-    display: flex;
-    flex-direction: column;
-    font-size: 1em;
-    line-height: 1.5;
-    flex: 1 1 200px;
-    background-color: #00000000;
-    color: rgb(229, 229, 229);
-    padding: 20px;
+/* Contenido principal */
+.footer-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Secciones del footer */
+.footer-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Títulos de las secciones */
+.footer-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0 0 10px 0;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #3d5a80;
+  padding-bottom: 8px;
+}
+
+/* Información de contacto */
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Items de contacto */
+.contact-item {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+  color: #e8e8e8;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.contact-item:last-child {
+  border-bottom: none;
+}
+
+/* Información del proyecto */
+.project-info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.project-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+  color: #e8e8e8;
+  text-align: justify;
+}
+
+.program {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: 1px;
+  text-align: center;
+  padding: 12px 0;
+  border: 1px solid #3d5a80;
+  background-color: rgba(61, 90, 128, 0.2);
+}
+
+.date {
+  font-size: 0.95rem;
+  color: #b8b8b8;
+  margin: 0;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* Línea divisoria */
+.footer-divider {
+  border: none;
+  height: 1px;
+  background-color: #3d5a80;
+  margin: 30px auto 20px auto;
+  max-width: 1200px;
+}
+
+/* Parte inferior del footer */
+.footer-bottom {
+  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-bottom p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #b8b8b8;
+  font-weight: 400;
+}
+
+/* RESPONSIVE DESIGN */
+
+/* Tablets */
+@media (max-width: 968px) {
+  .footer-container {
+    padding: 35px 18px 18px;
+  }
+
+  .footer-content {
+    gap: 40px;
+  }
+
+  .footer-title {
+    font-size: 1.2rem;
+  }
+
+  .contact-item {
+    font-size: 0.9rem;
+  }
+
+  .project-description {
+    font-size: 0.95rem;
+  }
+
+  .program {
+    font-size: 1rem;
+    padding: 10px 0;
+  }
+}
+
+/* Móviles */
+@media (max-width: 768px) {
+  .footer-container {
+    padding: 30px 15px 15px;
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .footer-title {
+    font-size: 1.1rem;
     text-align: center;
-    list-style: none;
-    justify-content: center;  /* Centrado vertical */
-    align-items: center; 
+  }
+
+  .contact-info {
+    gap: 10px;
+  }
+
+  .contact-item {
+    font-size: 0.85rem;
+    padding: 6px 0;
+    text-align: center;
+  }
+
+  .project-description {
+    font-size: 0.9rem;
+    text-align: center;
+  }
+
+  .program {
+    font-size: 0.95rem;
+    padding: 8px 0;
+  }
+
+  .date {
+    font-size: 0.9rem;
+  }
+
+  .footer-bottom p {
+    font-size: 0.85rem;
+  }
 }
 
+/* Móviles pequeños */
+@media (max-width: 480px) {
+  .footer-container {
+    padding: 25px 12px 12px;
+  }
+
+  .footer-content {
+    gap: 25px;
+  }
+
+  .footer-title {
+    font-size: 1rem;
+  }
+
+  .contact-item {
+    font-size: 0.8rem;
+  }
+
+  .project-description {
+    font-size: 0.85rem;
+  }
+
+  .program {
+    font-size: 0.9rem;
+  }
+
+  .date {
+    font-size: 0.85rem;
+  }
+
+  .footer-divider {
+    margin: 20px auto 15px auto;
+  }
+}
+
+/* Pantallas grandes */
+@media (min-width: 1400px) {
+  .footer-content {
+    max-width: 1400px;
+    gap: 80px;
+  }
+
+  .footer-container {
+    padding: 50px 30px 25px;
+  }
+
+  .footer-title {
+    font-size: 1.4rem;
+  }
+
+  .contact-item {
+    font-size: 1rem;
+  }
+
+  .project-description {
+    font-size: 1.1rem;
+  }
+
+  .program {
+    font-size: 1.2rem;
+  }
+
+  .date {
+    font-size: 1rem;
+  }
+}
