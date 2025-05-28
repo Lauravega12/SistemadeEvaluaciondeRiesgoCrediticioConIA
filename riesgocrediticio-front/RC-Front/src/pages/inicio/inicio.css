@@ -1,4 +1,3 @@
-
 .inicio-ContIA {
     width: 80%;
     display: flex;
@@ -15,6 +14,7 @@
     flex-grow: 1;
     flex-basis: 25em;
 }
+
 .inicio-ParIA{
     font-size: clamp(1rem, 2.5vw, 1.5rem);
     text-align: justify;
@@ -27,6 +27,7 @@
     border-radius:10px 0 10px 0 ;
     padding: 4px;
 }
+
 .inicio-CrRsgos {
     display: flex;
     flex-wrap: wrap;
@@ -36,6 +37,7 @@
     margin: 4em 0 ;
     background-color: rgb(227, 227, 227);
 }
+
 .inicio-TpsRiesgo {
   display: flex;
   border-radius: 30px;
@@ -47,24 +49,26 @@
   justify-content: center;
   color: #eceae5;
   font-size: 1.5em;
-  
-
 }
-p{
+
+/* CAMBIO AQUÍ: En lugar de un selector genérico 'p', 
+   usa selectores específicos para los párrafos que SÍ quieres justificar */
+.inicio-ContIA p,
+.inicio-IATxt p,
+.inicio-CrRsgos p {
     text-align: justify;
 }
 
 .inicio-h3V{
     color: green;
-    
 }
+
 .inicio-h3N{
     color: rgb(215, 140, 0);
-
 }
+
 .inicio-h3R{
     color: rgb(209, 0, 0);
-
 }
 
 .inicio-Perfil{
@@ -110,6 +114,27 @@ p{
   border-radius: 50%;
   background: #f2f2f2;
   margin: 16px 10px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #ff8a00;
+  text-align: center;
+  position: relative;
+  line-height: 40px;
+}
+
+.author-avatar span::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff8a00, #e52e71);
+  z-index: -1;
+}
+
+.author-avatar span:hover {
+  color: rgb(0, 0, 0);
+  background: linear-gradient(135deg, #ff8a00, #e52e71);
+  transform: scale(1.05);
 }
 
 .half-circle {
@@ -159,7 +184,6 @@ p{
 }
 
 .tags a {
-
   font-style: normal;
   font-weight: 700;
   color: #7a7a8c;
@@ -172,7 +196,6 @@ p{
 }
 
 .tags a:hover {
-
   background: linear-gradient(90deg,#ff8a00,#e52e71);
   text-shadow: none;
   -webkit-text-fill-color: transparent;
@@ -182,22 +205,3 @@ p{
   background-clip: text;
   border-color: white;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

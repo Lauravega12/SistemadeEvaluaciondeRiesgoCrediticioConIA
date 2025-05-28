@@ -111,7 +111,7 @@ function Inicio() {
           </header>
 
           <div className="inicio-Perfil-author">
-            <a className="author-avatar" href="#">
+              <a className="author-avatar" href="#">
               <span>{assessment?.user?.username ? assessment.user.username[0].toUpperCase() : "?"}</span>
             </a>
             <svg className="half-circle" viewBox="0 0 106 57">
