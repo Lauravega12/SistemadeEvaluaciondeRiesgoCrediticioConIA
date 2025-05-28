@@ -51,6 +51,10 @@ export default function Login() {
     }
   };
 
+  const handleSignUp = () => {
+    navigate("/registro");
+  };
+
   return (
     <div className="login-contenedor">
       <div className="card">
@@ -103,13 +107,10 @@ export default function Login() {
               <button className="button1" type="submit">
                 Login
               </button>
-              <button className="button2" type="button">
+              <button className="button2" type="button" onClick={handleSignUp}>
                 Sign Up
               </button>
             </div>
-            <button className="button3" type="button">
-              Forgot Password
-            </button>
           </form>
         </div>
       </div>

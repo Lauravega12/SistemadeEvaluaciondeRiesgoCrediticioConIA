@@ -76,6 +76,7 @@
   justify-content: center;
   flex-direction: row;
   margin-top: 2.5em;
+  padding: 1.5em;
 }
 
 .button1 {
@@ -124,7 +125,3 @@
   color: white;
 }
 
-.button3:hover {
-  background-color: red;
-  color: white;
-}
