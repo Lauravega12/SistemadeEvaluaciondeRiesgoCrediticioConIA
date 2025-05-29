@@ -137,7 +137,7 @@ function Admin() {
               {
                 usuariosFiltrados.filter((u) => {
                   const nivel = (u.riskLevel || "").toLowerCase().trim();
-                  return nivel === "alto" || nivel === "alta";
+                  return nivel === "riesgo alto" || nivel === "alta";
                 }).length
               }
             </div>

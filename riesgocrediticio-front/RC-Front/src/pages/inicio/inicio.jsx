@@ -50,6 +50,48 @@ function Inicio() {
     return fecha.toLocaleDateString();
   };
 
+  // Función para normalizar y obtener información del riesgo
+  const getRiskInfo = (riskLevel) => {
+    if (!riskLevel) return { level: "Desconocido", description: null };
+
+    const normalized = riskLevel.toLowerCase().trim();
+
+    if (normalized.includes("bajo") || normalized === "low") {
+      return {
+        level: "BAJO",
+        description:
+          "Usuario con riesgo bajo, historial crediticio sólido y buen manejo financiero.",
+      };
+    }
+
+    if (
+      normalized.includes("medio") ||
+      normalized === "medium" ||
+      normalized.includes("regular")
+    ) {
+      return {
+        level: "MEDIO",
+        description:
+          "Usuario con riesgo medio, mantener cuidado en el manejo financiero y evitar endeudamientos altos.",
+      };
+    }
+
+    if (normalized.includes("alto") || normalized === "high") {
+      return {
+        level: "ALTO",
+        description:
+          "Usuario con riesgo alto, se recomienda asesoría financiera urgente y evitar nuevas deudas.",
+      };
+    }
+
+    // Si no coincide con ningún patrón, devolver el valor original
+    return {
+      level: riskLevel.toUpperCase(),
+      description:
+        "Aún no se ha podido obtener la descripción del nivel de riesgo.",
+    };
+  };
+
   if (loading) {
     return (
       <>
@@ -89,34 +131,13 @@ function Inicio() {
                 : "Fecha no disponible"}
             </p>
             <span className="title">
-              Riesgo {assessment?.riskLevel ?? "Desconocido"}
+              Riesgo {getRiskInfo(assessment?.riskLevel).level}
             </span>
             <br />
             <br />
-            {/* Mostrar descripción según riesgo o mensaje por defecto */}
-            {assessment?.riskLevel === "LOW" && (
-              <p>
-                Usuario con riesgo bajo, historial crediticio sólido y buen
-                manejo financiero.
-              </p>
-            )}
-            {assessment?.riskLevel === "MEDIUM" && (
-              <p>
-                Usuario con riesgo medio, mantener cuidado en el manejo
-                financiero y evitar endeudamientos altos.
-              </p>
-            )}
-            {assessment?.riskLevel === "HIGH" && (
-              <p>
-                Usuario con riesgo alto, se recomienda asesoría financiera
-                urgente y evitar nuevas deudas.
-              </p>
-            )}
-
-            {!assessment?.riskLevel && (
-              <p>
-                Aún no se ha podido obtener la descripción del nivel de riesgo.
-              </p>
+            {/* Mostrar descripción del riesgo */}
+            {getRiskInfo(assessment?.riskLevel).description && (
+              <p>{getRiskInfo(assessment?.riskLevel).description}</p>
             )}
           </header>
 
